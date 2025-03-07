@@ -7,11 +7,11 @@ with open("result", "+wb") as result_file:
     with open("main.sc") as file:
         line = file.readline().replace("\n", "").split()
         while line:
-            if line[0].lower() == "hlt": # завершение работы проги
+            if line[0].lower() == "hlt":
                 result.append(0x00)
-            elif line[0].lower() == "jmp": # безусловный переход по адресу (смещение PC)
+            elif line[0].lower() == "jmp":
                 result.append(0x01)
-            elif line[0].lower() == "jeq": # переход, если вершина = 0
+            elif line[0].lower() == "jeq":
                 result.append(0x02)
             elif line[0].lower() == "pushc":
                 result.append(0x0D)
@@ -21,62 +21,62 @@ with open("result", "+wb") as result_file:
                 else:
                     print("OTVAL EPTA >>> invalid character")
                     exit(1)
-            elif line[0].lower() == "push8": # поместить 8-битное значение в стек
+            elif line[0].lower() == "push8":
                 result.append(0x0E)
                 if line[1][:2] == "0x":
                     num = int(line[1][2:], 16)
                 else:
                     num = int(line[1])
                 result.extend(list(struct.pack("b", num)))
-            elif line[0].lower() == "push16": # поместить 16-битное значение в стек
+            elif line[0].lower() == "push16":
                 result.append(0x0F)
                 if line[1][:2] == "0x":
                     num = int(line[1][2:], 16)
                 else:
                     num = int(line[1])
                 result.extend(list(struct.pack("<h", num)))
-            elif line[0].lower() == "push32" or line[0].lower() == "push": # поместить 32-битное значение в стек
+            elif line[0].lower() == "push32" or line[0].lower() == "push":
                 result.append(0x10)
                 if line[1][:2] == "0x":
                     num = int(line[1][2:], 16)
                 else:
                     num = int(line[1])
                 result.extend(list(struct.pack("<i", num)))
-            elif line[0].lower() == "pop": # удалить верх стека
+            elif line[0].lower() == "pop":
                 result.append(0x11)
-            elif line[0].lower() == "store": # сохранить верхний элемент стека в псевдо-озу
+            elif line[0].lower() == "store":
                 result.append(0x12)
-            elif line[0].lower() == "load": # загружает элемент в стек из псевдо-озу
+            elif line[0].lower() == "load":
                 result.append(0x13)
-            elif line[0].lower() == "free": # очистка ячейки ОЗУ
+            elif line[0].lower() == "free":
                 result.append(0x14)
-            elif line[0].lower() == "clr": # очистка стека
+            elif line[0].lower() == "clr":
                 result.append(0x15)
-            elif line[0].lower() == "add": # сложение верхнего и нижнего (и их удаление!!!)
+            elif line[0].lower() == "add":
                 result.append(0x20)
-            elif line[0].lower() == "sub": # вычитание из верхнего элемента нижнего
+            elif line[0].lower() == "sub":
                 result.append(0x21)
-            elif line[0].lower() == "mul": # умножение
+            elif line[0].lower() == "mul":
                 result.append(0x22)
-            elif line[0].lower() == "div": # деление верхнего элемента на нижний
+            elif line[0].lower() == "div":
                 result.append(0x23)
-            elif line[0].lower() == "inc": # инкремент первого элемента
+            elif line[0].lower() == "inc":
                 result.append(0x24)
-            elif line[0].lower() == "dec": # декремент первого элемента
+            elif line[0].lower() == "dec":
                 result.append(0x25)
-            elif line[0].lower() == "neg": # отрицание
+            elif line[0].lower() == "neg":
                 result.append(0x26)
-            elif line[0].lower() == "and": # логическое И
+            elif line[0].lower() == "and":
                 result.append(0x27)
-            elif line[0].lower() == "or": # логическое ИЛИ
+            elif line[0].lower() == "or":
                 result.append(0x29)
-            elif line[0].lower() == "xor": # исключающее ИЛИ
+            elif line[0].lower() == "xor":
                 result.append(0x29)
-            elif line[0].lower() == "cmp": # a == b -> 0; a < b -> -1; a > b -> 1
+            elif line[0].lower() == "cmp":
                 result.append(0x2A)
-            elif line[0].lower() == "print": # вывод первой чиселки из стека
+            elif line[0].lower() == "print":
                 result.append(0x40)
-            elif line[0].lower() == "printc": # вывод ascii символа первого числа из стека
+            elif line[0].lower() == "printc":
                 result.append(0x41)
             elif line[0].lower() == "void":
                 result.append(0xff)
