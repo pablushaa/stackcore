@@ -28,7 +28,7 @@ with open("result", "rb") as file:
                     n = stack.pop()
                     if n == 0:
                         pc = addr + 3
-            elif a[pc] == 0x0D:
+            elif a[pc] == 0x0D: # pushc
                 stack.append(a[pc + 1])
                 pc += 1
             elif a[pc] == 0x0E: # push8
@@ -99,9 +99,6 @@ with open("result", "rb") as file:
                 print(stack.pop(), end="")
             elif a[pc] == 0x41: # printc
                 print(chr(stack.pop()), end="")
-            elif a[pc] == 0x42: # printn
-                for _ in range(stack.pop()):
-                    print(stack.pop())
             pc += 1
 print("")
 print(stack)

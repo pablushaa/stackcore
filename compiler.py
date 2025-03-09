@@ -69,7 +69,7 @@ with open("result", "+wb") as result_file:
             elif line[0].lower() == "and":
                 result.append(0x27)
             elif line[0].lower() == "or":
-                result.append(0x29)
+                result.append(0x28)
             elif line[0].lower() == "xor":
                 result.append(0x29)
             elif line[0].lower() == "cmp":
